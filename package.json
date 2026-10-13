@@ -1,0 +1,54 @@
+{
+  "name": "top-tags",
+  "version": "1.0.0",
+  "description": "Lists the most-used tags with article counts and a link to the full tag list.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Georges Cubas",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shagshag/quartz-top-tags"
+  },
+  "keywords": [
+    "quartz",
+    "quartz-plugin",
+    "tags",
+    "component"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./components": {
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "sideEffects": false,
+  "quartz": {
+    "name": "top-tags",
+    "displayName": "Top Tags",
+    "category": "component",
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 50,
+    "defaultEnabled": true,
+    "defaultOptions": {
+      "limit": 8,
+      "title": "Tags"
+    },
+    "components": {
+      "TopTags": {
+        "displayName": "Top Tags",
+        "defaultPosition": "left",
+        "defaultPriority": 50
+      }
+    }
+  }
+}
