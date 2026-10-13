@@ -28,7 +28,7 @@ const css = `.top-tags {
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-.top-tags li a {
+.top-tags li a.tag-chip {
   display: inline-block;
   padding: 0.1rem 0.55rem;
   border: 1px solid var(--lightgray);
@@ -75,7 +75,7 @@ export const TopTags = (opts) => {
             jsx("li", {
               children: jsxs("a", {
                 href: relativeTo(slug, `tags/${tag}`),
-                class: "internal tag-link",
+                class: "tag-chip",
                 children: [tag, jsx("span", { children: count })],
               }),
             }),
@@ -83,7 +83,7 @@ export const TopTags = (opts) => {
         }),
         jsx("a", {
           href: relativeTo(slug, "tags/"),
-          class: "internal all-tags",
+          class: "all-tags",
           children: "Tous les tags →",
         }),
       ],
