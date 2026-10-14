@@ -78,10 +78,11 @@ const css = `.top-tags {
   .top-tags-menu .top-tags {
     position: absolute;
     top: calc(100% + 0.4rem);
-    left: 0;
+    right: 0;
     z-index: 10;
     width: max-content;
     max-width: calc(100vw - 2rem);
+    box-sizing: border-box;
     padding: 0.75rem;
     border: 1px solid var(--lightgray);
     border-radius: 5px;
