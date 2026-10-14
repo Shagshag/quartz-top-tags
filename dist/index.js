@@ -47,6 +47,46 @@ const css = `.top-tags {
 }
 .top-tags .all-tags {
   font-size: 0.85rem;
+}
+.top-tags-menu {
+  display: none;
+}
+@media (max-width: 800px) {
+  .top-tags-panel {
+    display: none;
+  }
+  .top-tags-menu {
+    display: block;
+    position: relative;
+  }
+  .top-tags-menu summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--lightgray);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: var(--darkgray);
+  }
+  .top-tags-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .top-tags-menu[open] summary {
+    color: var(--secondary);
+    border-color: var(--secondary);
+  }
+  .top-tags-menu .top-tags {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    z-index: 10;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    padding: 0.75rem;
+    border: 1px solid var(--lightgray);
+    border-radius: 5px;
+    background-color: var(--light);
+  }
 }`
 
 /** The `limit` most-used tags (with article counts) and a link to the full tag list. */
@@ -66,25 +106,38 @@ export const TopTags = (opts) => {
     if (top.length === 0) return null
 
     const slug = fileData.slug
-    return jsxs("div", {
-      class: [displayClass, "top-tags"].filter(Boolean).join(" "),
-      children: [
-        jsx("h3", { children: options.title }),
-        jsx("ul", {
-          children: top.map(([tag, count]) =>
-            jsx("li", {
-              children: jsxs("a", {
-                href: relativeTo(slug, `tags/${tag}`),
-                class: "tag-chip",
-                children: [tag, jsx("span", { children: count })],
+    const list = (title) =>
+      jsxs("div", {
+        class: "top-tags",
+        children: [
+          title && jsx("h3", { children: title }),
+          jsx("ul", {
+            children: top.map(([tag, count]) =>
+              jsx("li", {
+                children: jsxs("a", {
+                  href: relativeTo(slug, `tags/${tag}`),
+                  class: "tag-chip",
+                  children: [tag, jsx("span", { children: count })],
+                }),
               }),
-            }),
-          ),
-        }),
-        jsx("a", {
-          href: relativeTo(slug, "tags/"),
-          class: "all-tags",
-          children: "Tous les tags →",
+            ),
+          }),
+          jsx("a", {
+            href: relativeTo(slug, "tags/"),
+            class: "all-tags",
+            children: "Tous les tags →",
+          }),
+        ],
+      })
+
+    // Desktop shows the list inline; mobile collapses it into a dropdown menu.
+    return jsxs("div", {
+      class: [displayClass, "top-tags-wrapper"].filter(Boolean).join(" "),
+      children: [
+        jsx("div", { class: "top-tags-panel", children: list(options.title) }),
+        jsxs("details", {
+          class: "top-tags-menu",
+          children: [jsx("summary", { children: options.title }), list()],
         }),
       ],
     })
