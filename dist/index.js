@@ -28,19 +28,6 @@ const css = `.top-tags {
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-.top-tags li a.tag-chip {
-  display: inline-block;
-  padding: 0.1rem 0.55rem;
-  border: 1px solid var(--lightgray);
-  border-radius: 1rem;
-  font-size: 0.85rem;
-  color: var(--darkgray);
-  background-color: transparent;
-}
-.top-tags li a:hover {
-  color: var(--secondary);
-  border-color: var(--secondary);
-}
 .top-tags li a span {
   color: var(--gray);
   margin-left: 0.25rem;
@@ -117,7 +104,7 @@ export const TopTags = (opts) => {
               jsx("li", {
                 children: jsxs("a", {
                   href: relativeTo(slug, `tags/${tag}`),
-                  class: "tag-chip",
+                  class: "internal tag-link",
                   children: [tag, jsx("span", { children: count })],
                 }),
               }),
@@ -125,7 +112,7 @@ export const TopTags = (opts) => {
           }),
           jsx("a", {
             href: relativeTo(slug, "tags/"),
-            class: "all-tags",
+            class: "internal all-tags",
             children: "Tous les tags →",
           }),
         ],
